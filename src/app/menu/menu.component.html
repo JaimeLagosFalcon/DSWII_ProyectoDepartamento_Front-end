@@ -1,0 +1,58 @@
+
+<div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Cibertec</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item " *ngIf="!isLogged">
+                <a class="nav-link"  routerLink="/appLogin"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+            </li>
+            <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()" >
+              <a class="nav-link" style="cursor: pointer;"><i class="fas fa-door-open" ></i> Cerrar Sesión</a>      
+          </li>
+          <li class="nav-item" *ngIf="isLogged">
+            <a routerLink="/addUsuario" class="nav-link">Usuario</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged" >
+            <a routerLink="/addPropietario" class="nav-link">Propietario</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged">
+            <a routerLink="/addIncidente" class="nav-link">Incidente</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged">
+            <a routerLink="/addServicios" class="nav-link">Servicios</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged" >
+            <a routerLink="/addVisitante" class="nav-link">Visitante</a>
+          </li>
+          <li class="nav-item" *ngIf="isLogged">
+            <a routerLink="/addDepartamento" class="nav-link">Departamento</a>
+          </li>
+          <li class="nav-item"  *ngIf="isLogged">
+            <a routerLink="/addMascota" class="nav-link" href="#">Mascota</a>
+          </li>
+          <li class="nav-item"  *ngIf="isLogged">
+            <a routerLink="/addVisita" class="nav-link">Visita</a>
+          </li>
+          <br>
+        </ul> 
+        
+        <div class="container text-center" style="text-align: right; color: whitesmoke;">
+          <div *ngIf="isLogged; else loggedOut"><h2 style="font-size: 20px;">Bienvenido {{nombreUsuario}}</h2></div>
+          <ng-template #loggedOut></ng-template>
+        </div>
+        
+      </div>
+    </nav>
+      <div class="container mt-3">
+        <router-outlet></router-outlet>
+      </div>
+  </div>
+ 

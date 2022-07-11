@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<app-menu></app-menu>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--es como el JSTL - customTag-->
+
+<head th:replace="principal::head">
+	<title>Getting Started: Serving Web Content</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<div style="margin-top: 4%; width: 70%; margin-left: 15%;">
+	<form class="content" (ngSubmit)="saveVisitante()">
+		<div class="submit-form" style="margin-left: 20%;">
+
+			<div class="row">
+				<div class="col-lg-12">
+					<h6>REGISTRO DE VISITANTE</h6>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 3%">
+				<div class="col-lg-4">
+					<label for="dni">DNI</label>
+					<input type="number" class="form-control" name="dni" id="dni" [(ngModel)]="visitante.dni">
+				</div>
+				<div class="col-lg-4">
+					<label for="nombrevisitante">Nombre</label>
+					<input type="text" class="form-control" name="nombrevisitante" id="nombrevisitante"
+						[(ngModel)]="visitante.nombrevisitante">
+				</div>
+			</div>
+
+
+			<div class="row" style="margin-top: 3%">
+				<div class="col-lg-4" hidden>
+					<label for="usuario">Usuario</label>
+					<select id="usuario" name="usuario" class="form-control" required
+						[(ngModel)]="visitante.idUsuario!.idUsuario">
+						<option *ngFor="let aux of usuarios" value="{{aux.idUsuario}}">
+							{{ aux.nombre }} {{aux.primerapellido}}
+						</option>
+					</select>
+				</div>
+
+				<div class="col-lg-4">
+					<label for="propietario">Propietario</label>
+					<select id="propietario" name="propietario" class="form-control"
+						[(ngModel)]="visitante.codpropietario!.codpropietario">
+						<option value="-1"> [Seleccione] </option>
+						<option *ngFor="let aux of propietarios" value="{{aux.codpropietario}}">
+							{{ aux.nombre }} {{ aux.primerapellido}}
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 3%">
+				<div class="col-lg-1">
+					<button class="btn btn-success">Enviar</button>
+				</div>
+				<div class="col-lg-1">
+					<button routerLink="/addVisita" class="btn btn-success">Visita</button>
+				</div>
+			</div>
+		</div>
+		<hr style="color: yellow;" width="100%" size="10%" noshade="noshade">
+		<!-- Tabla Departamento-->   
+		<div class="row" style="margin-top: 3%">
+		  <table class="table table-hover" id="tb">
+			<thead>
+			  <tr>
+				<th>Codigo</th>
+				<th>DNI</th>
+				<th>Nombre</th>
+				<th>Usuario</th>
+				<th>Propietario</th>
+			  </tr>
+			</thead>
+			<tbody >
+			  <tr *ngFor="let aux of visitantes  | paginate: {itemsPerPage: 5, currentPage: pageActual}">
+				<td>{{ aux.codvisitantes}}</td>
+				<td>{{ aux.dni}}</td>
+				<td>{{ aux.nombrevisitante}}</td>
+				<td>{{ aux.idUsuario!.nombre}} {{ aux.idUsuario!.primerapellido}}</td>
+				<td>{{ aux.codpropietario!.nombre}} {{ aux.codpropietario!.primerapellido}}</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+		</div> 
+	</form>
+</div>
